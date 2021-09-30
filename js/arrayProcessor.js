@@ -13,7 +13,7 @@ var arrayProcessor = {
                     sum = tmpSum;
             }
         }
-        document.getElementById("out1").innerText = sum;
+        document.getElementById("out1.1").innerText = "Max summary: " + sum;
     },
 
     GetMaxMinMedian: function() {
@@ -21,9 +21,9 @@ var arrayProcessor = {
         srcArray.sort(function compareNumbers(a, b) {
             return a - b;
         });
-        document.getElementById("out1").innerText = srcArray[0];
-        document.getElementById("out2").innerText = srcArray[srcArray.length - 1];
-        document.getElementById("out3").innerText = srcArray[Math.trunc(srcArray.length / 2)];
+        document.getElementById("out1.1").innerText = "Min: " + srcArray[0];
+        document.getElementById("out1.2").innerText = "Max: " + srcArray[srcArray.length - 1];
+        document.getElementById("out1.3").innerText = "Median: " + srcArray[Math.trunc(srcArray.length / 2)];
     },
 
     GetMaxSortedSequence: function() {
@@ -40,16 +40,16 @@ var arrayProcessor = {
             if (tmpArray.length > resArray.length)
                 resArray = tmpArray;
         }
-        document.getElementById("out1").innerText = resArray;
+        document.getElementById("out1.1").innerText = "Sequence: " + resArray;
     },
 }
 
 Clear = function() {
-    document.getElementById("out1").innerText = "";
-    document.getElementById("out2").innerText = "";
-    document.getElementById("out3").innerText = "";
+    document.getElementById("out1.1").innerText = "";
+    document.getElementById("out1.2").innerText = "";
+    document.getElementById("out1.3").innerText = "";
 }
 
-document.getElementById("btn1").addEventListener("click", arrayProcessor.GetMaxSubSum);
-document.getElementById("btn2").addEventListener("click", arrayProcessor.GetMaxMinMedian);
-document.getElementById("btn3").addEventListener("click", arrayProcessor.GetMaxSortedSequence);
+document.getElementById("btn1.1").addEventListener("click", arrayProcessor.GetMaxSubSum);
+document.getElementById("btn1.2").addEventListener("click", arrayProcessor.GetMaxMinMedian);
+document.getElementById("btn1.3").addEventListener("click", arrayProcessor.GetMaxSortedSequence);
