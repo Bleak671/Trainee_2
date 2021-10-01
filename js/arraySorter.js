@@ -1,17 +1,15 @@
 var arraySorter = {
-    SortBubble: function() {
-        let srcArray = document.getElementById("in5").value.split(",").map(Number);
+    SortBubble: function(srcArray) {
         for (let i = 0; i < srcArray.length - 1; i++) {
             for (let j = 0; j < srcArray.length - 1; j++) {
                 if (srcArray[j] > srcArray[j + 1])
                     Swap(srcArray, j);
             }
         }
-        document.getElementById("out5").innerText = srcArray;
+        document.getElementById("out5").innerText = "bubble: " + srcArray;
     },
 
-    SortBubblewithFlag: function() {
-        let srcArray = document.getElementById("in5").value.split(",").map(Number);
+    SortBubblewithFlag: function(srcArray) {
         let flag = true;
         while (flag) {
             flag = false;
@@ -22,11 +20,10 @@ var arraySorter = {
                 }
             }
         }
-        document.getElementById("out5").innerText = srcArray;
+        document.getElementById("out5").innerText = "bubble with flag: " + srcArray;
     },
 
-    SortShaker: function() {
-        let srcArray = document.getElementById("in5").value.split(",").map(Number);
+    SortShaker: function(srcArray) {
         let left = 0;
         let right = srcArray.length - 1;
         while (left < right) {
@@ -42,11 +39,10 @@ var arraySorter = {
             }
             left++;
         }
-        document.getElementById("out5").innerText = srcArray;
+        document.getElementById("out5").innerText = "shaker: " + srcArray;
     },
 
-    SortInsert: function() {
-        let srcArray = document.getElementById("in5").value.split(",").map(Number);
+    SortInsert: function(srcArray) {
         for (let i = 1; i < srcArray.length; i++) {
             let key = srcArray[i];
             let j = i - 1;
@@ -56,7 +52,7 @@ var arraySorter = {
             }
             srcArray[j + 1] = key;
         }
-        document.getElementById("out5").innerText = srcArray;
+        document.getElementById("out5").innerText = "insert: " + srcArray;
     }
 }
 
@@ -66,7 +62,7 @@ function Swap(array, index) {
     array[index + 1] = tmp;
 }
 
-document.getElementById("btn5.1").addEventListener("click", arraySorter.SortBubble);
-document.getElementById("btn5.2").addEventListener("click", arraySorter.SortBubblewithFlag);
-document.getElementById("btn5.3").addEventListener("click", arraySorter.SortShaker);
-document.getElementById("btn5.4").addEventListener("click", arraySorter.SortInsert);
+document.getElementById("btn5.1").addEventListener("click", function() { arraySorter.SortBubble.call(null, document.getElementById("in5").value.split(",").map(Number)) });
+document.getElementById("btn5.2").addEventListener("click", function() { arraySorter.SortBubblewithFlag.call(null, document.getElementById("in5").value.split(",").map(Number)) });
+document.getElementById("btn5.3").addEventListener("click", function() { arraySorter.SortShaker.call(null, document.getElementById("in5").value.split(",").map(Number)) });
+document.getElementById("btn5.4").addEventListener("click", function() { arraySorter.SortInsert.call(null, document.getElementById("in5").value.split(",").map(Number)) });
