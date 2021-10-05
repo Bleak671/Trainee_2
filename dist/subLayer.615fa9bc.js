@@ -295,6 +295,24 @@ var textFormatter = {
 module.exports = {
   textFormatter: textFormatter
 };
+},{}],"js/stringCalc.js":[function(require,module,exports) {
+var stringCalc = {
+  Minus: function Minus(src1, src2) {
+    return Number(src1) - Number(src2);
+  },
+  Plus: function Plus(src1, src2) {
+    return Number(src1) + Number(src2);
+  },
+  Mul: function Mul(src1, src2) {
+    return Number(src1) * Number(src2);
+  },
+  Div: function Div(src1, src2) {
+    return Number(src1) / Number(src2);
+  }
+};
+module.exports = {
+  stringCalc: stringCalc
+};
 },{}],"js/arraySorter.js":[function(require,module,exports) {
 var arraySorter = {
   SortBubble: function SortBubble(srcArray) {
@@ -428,11 +446,14 @@ var _require2 = require('./dateProcessor.js'),
 var _require3 = require('./textFormatter.js'),
     textFormatter = _require3.textFormatter;
 
-var _require4 = require('./arraySorter.js'),
-    arraySorter = _require4.arraySorter;
+var _require4 = require('./stringCalc.js'),
+    stringCalc = _require4.stringCalc;
 
-var _require5 = require('./binaryConverter.js'),
-    binaryConverter = _require5.binaryConverter;
+var _require5 = require('./arraySorter.js'),
+    arraySorter = _require5.arraySorter;
+
+var _require6 = require('./binaryConverter.js'),
+    binaryConverter = _require6.binaryConverter;
 
 arrProcSubSum = function arrProcSubSum() {
   Clear();
@@ -501,6 +522,30 @@ textFormLenCountOption = function textFormLenCountOption() {
   document.getElementById("out3").innerText = textFormatter.FormatLenCount(src[0], src[1], src[2], src[3]);
 };
 
+strCalcMinus = function strCalcMinus() {
+  var src1 = document.getElementById("in4.1").value;
+  var src2 = document.getElementById("in4.2").value;
+  document.getElementById("out4").innerText = stringCalc.Minus(src1, src2);
+};
+
+strCalcPlus = function strCalcPlus() {
+  var src1 = document.getElementById("in4.1").value;
+  var src2 = document.getElementById("in4.2").value;
+  document.getElementById("out4").innerText = stringCalc.Plus(src1, src2);
+};
+
+strCalcMul = function strCalcMul() {
+  var src1 = document.getElementById("in4.1").value;
+  var src2 = document.getElementById("in4.2").value;
+  document.getElementById("out4").innerText = stringCalc.Mul(src1, src2);
+};
+
+strCalcDiv = function strCalcDiv() {
+  var src1 = document.getElementById("in4.1").value;
+  var src2 = document.getElementById("in4.2").value;
+  document.getElementById("out4").innerText = stringCalc.Div(src1, src2);
+};
+
 arrSortBubble = function arrSortBubble() {
   var src = document.getElementById("in5").value.split(",").map(Number);
   document.getElementById("out5").innerText = "Bubble: " + arraySorter.SortBubble(src);
@@ -530,7 +575,57 @@ binConvToBin = function binConvToBin() {
   var src = document.getElementById("in6").value.split(",").map(Number);
   document.getElementById("out6").innerText = "Dec: " + binaryConverter.DecToBin(src);
 };
-},{"./arrayProcessor.js":"js/arrayProcessor.js","./dateProcessor.js":"js/dateProcessor.js","./textFormatter.js":"js/textFormatter.js","./arraySorter.js":"js/arraySorter.js","./binaryConverter.js":"js/binaryConverter.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+var cache = new Map();
+
+cachingCalcMinus = function cachingCalcMinus() {
+  var src1 = document.getElementById("in7.1").value;
+  var src2 = document.getElementById("in7.2").value;
+  var key = src1 + " " + src2 + "-";
+
+  if (!cache.has(key)) {
+    cache.set(key, stringCalc.Minus(src1, src2));
+  }
+
+  document.getElementById("out7").innerText = cache.get(key);
+};
+
+cachingCalcPlus = function cachingCalcPlus() {
+  var src1 = document.getElementById("in7.1").value;
+  var src2 = document.getElementById("in7.2").value;
+  var key = src1 + " " + src2 + "+";
+
+  if (!cache.has(key)) {
+    cache.set(key, stringCalc.Plus(src1, src2));
+  }
+
+  document.getElementById("out7").innerText = cache.get(key);
+};
+
+cachingCalcMul = function cachingCalcMul() {
+  var src1 = document.getElementById("in7.1").value;
+  var src2 = document.getElementById("in7.2").value;
+  var key = src1 + " " + src2 + "*";
+
+  if (!cache.has(key)) {
+    cache.set(key, stringCalc.Mul(src1, src2));
+  }
+
+  document.getElementById("out7").innerText = cache.get(key);
+};
+
+cachingCalcDiv = function cachingCalcDiv() {
+  var src1 = document.getElementById("in7.1").value;
+  var src2 = document.getElementById("in7.2").value;
+  var key = src1 + " " + src2 + "/";
+
+  if (!cache.has(key)) {
+    cache.set(key, stringCalc.Div(src1, src2));
+  }
+
+  document.getElementById("out7").innerText = cache.get(key);
+};
+},{"./arrayProcessor.js":"js/arrayProcessor.js","./dateProcessor.js":"js/dateProcessor.js","./textFormatter.js":"js/textFormatter.js","./stringCalc.js":"js/stringCalc.js","./arraySorter.js":"js/arraySorter.js","./binaryConverter.js":"js/binaryConverter.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -558,7 +653,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59181" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51778" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

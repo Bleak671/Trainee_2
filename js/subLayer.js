@@ -1,6 +1,7 @@
 const { arrayProcessor } = require('./arrayProcessor.js');
 const { dateProcessor } = require('./dateProcessor.js');
 const { textFormatter } = require('./textFormatter.js');
+const { stringCalc } = require('./stringCalc.js');
 const { arraySorter } = require('./arraySorter.js');
 const { binaryConverter } = require('./binaryConverter.js');
 
@@ -78,6 +79,32 @@ textFormLenCountOption = function() {
 
 
 
+strCalcMinus = function() {
+    let src1 = document.getElementById("in4.1").value;
+    let src2 = document.getElementById("in4.2").value;
+    document.getElementById("out4").innerText = stringCalc.Minus(src1,src2);
+}
+
+strCalcPlus = function() {
+    let src1 = document.getElementById("in4.1").value;
+    let src2 = document.getElementById("in4.2").value;
+    document.getElementById("out4").innerText = stringCalc.Plus(src1,src2);
+}
+
+strCalcMul = function() {
+    let src1 = document.getElementById("in4.1").value;
+    let src2 = document.getElementById("in4.2").value;
+    document.getElementById("out4").innerText = stringCalc.Mul(src1,src2);
+}
+
+strCalcDiv = function() {
+    let src1 = document.getElementById("in4.1").value;
+    let src2 = document.getElementById("in4.2").value;
+    document.getElementById("out4").innerText = stringCalc.Div(src1,src2);
+}
+
+
+
 arrSortBubble = function() {
     let src = document.getElementById("in5").value.split(",").map(Number);
     document.getElementById("out5").innerText = "Bubble: " + arraySorter.SortBubble(src);
@@ -108,4 +135,48 @@ binConvToDec = function() {
 binConvToBin = function() {
     let src = document.getElementById("in6").value.split(",").map(Number);
     document.getElementById("out6").innerText = "Dec: " + binaryConverter.DecToBin(src);
+}
+
+
+
+const cache = new Map();
+
+cachingCalcMinus = function() {
+    let src1 = document.getElementById("in7.1").value;
+    let src2 = document.getElementById("in7.2").value;
+    let key = src1 + " " + src2 + "-";
+    if (!cache.has(key)) {
+       cache.set(key, stringCalc.Minus(src1,src2));
+    }
+    document.getElementById("out7").innerText = cache.get(key);
+}
+
+cachingCalcPlus = function() {
+    let src1 = document.getElementById("in7.1").value;
+    let src2 = document.getElementById("in7.2").value;
+    let key = src1 + " " + src2 + "+";
+    if (!cache.has(key)) {
+       cache.set(key, stringCalc.Plus(src1,src2));
+    }
+    document.getElementById("out7").innerText = cache.get(key);
+}
+
+cachingCalcMul = function() {
+    let src1 = document.getElementById("in7.1").value;
+    let src2 = document.getElementById("in7.2").value;
+    let key = src1 + " " + src2 + "*";
+    if (!cache.has(key)) {
+       cache.set(key, stringCalc.Mul(src1,src2));
+    }
+    document.getElementById("out7").innerText = cache.get(key);
+}
+
+cachingCalcDiv = function() {
+    let src1 = document.getElementById("in7.1").value;
+    let src2 = document.getElementById("in7.2").value;
+    let key = src1 + " " + src2 + "/";
+    if (!cache.has(key)) {
+       cache.set(key, stringCalc.Div(src1,src2));
+    }
+    document.getElementById("out7").innerText = cache.get(key);
 }
