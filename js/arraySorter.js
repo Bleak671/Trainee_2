@@ -1,4 +1,4 @@
-var arraySorter = {
+let arraySorter = Object.seal({
     SortBubble: function(srcArray) {
         for (let i = 0; i < srcArray.length - 1; i++) {
             for (let j = 0; j < srcArray.length - 1; j++) {
@@ -65,6 +65,6 @@ var arraySorter = {
         }
         return srcArray;
     },
-}
+});
 
 module.exports = { arraySorter };

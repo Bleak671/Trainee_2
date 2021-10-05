@@ -35,46 +35,24 @@ Clear = function() {
 
 
 dateProcParse = function() {
-    let src = document.getElementById("in2").value;
-    document.getElementById("out2").innerText = dateProcessor.DateParser(src);
-}
-
-dateProcParseWithPattern = function() {
     let src = document.getElementById("in2").value.split(",");
-    document.getElementById("out2").innerText = dateProcessor.DateParserWithPattern(src[0],src[1]);
+    for (let i = 0; i < src.length; i++) {
+        src[i] = src[i].trim();
+    }
+    let patterns = document.getElementById("in2adds").value;
+    document.getElementById("out2").innerText = dateProcessor.DateParser(src[0],src[1],src[2],patterns);
 }
-
-dateProcParseToPattern = function() {
-    let src = document.getElementById("in2").value.split(",");
-    document.getElementById("out2").innerText = dateProcessor.DateParserToPattern(src[0],src[1]);
-}
-
-dateProcParseWithPatternToPattern = function() {
-    let src = document.getElementById("in2").value.split(",");
-    document.getElementById("out2").innerText = dateProcessor.DateParserWithPatternToPattern(src[0],src[1],src[2]);
-}
-
 
 
 
 textFormOption = function() {
     let src = document.getElementById("in3").value.split(",");
-    document.getElementById("out3").innerText = textFormatter.Format(src[0],src[1]);
-}
-
-textFormLenOption = function() {
-    let src = document.getElementById("in3").value.split(",");
-    document.getElementById("out3").innerText = textFormatter.FormatLen(src[0],src[1],src[2]);
-}
-
-textFormCountOption = function() {
-    let src = document.getElementById("in3").value.split(",");
-    document.getElementById("out3").innerText = textFormatter.FormatCount(src[0],src[1],src[2]);
-}
-
-textFormLenCountOption = function() {
-    let src = document.getElementById("in3").value.split(",");
-    document.getElementById("out3").innerText = textFormatter.FormatLenCount(src[0],src[1],src[2],src[3]);
+    for (let i = 0; i < src.length; i++) {
+        src[i] = src[i].trim();
+    }
+    let form = document.getElementById("in3list").value;
+    let adds = document.getElementById("in3adds").value;
+    document.getElementById("out3").innerText = textFormatter.Format(src[0],src[1],src[2],form,adds);
 }
 
 
@@ -134,49 +112,49 @@ binConvToDec = function() {
 
 binConvToBin = function() {
     let src = document.getElementById("in6").value.split(",").map(Number);
-    document.getElementById("out6").innerText = "Dec: " + binaryConverter.DecToBin(src);
+    document.getElementById("out6").innerText = "Bin: " + binaryConverter.DecToBin(src);
 }
 
 
 
-const cache = new Map();
+const cache = window.localStorage;
 
 cachingCalcMinus = function() {
     let src1 = document.getElementById("in7.1").value;
     let src2 = document.getElementById("in7.2").value;
     let key = src1 + " " + src2 + "-";
-    if (!cache.has(key)) {
-       cache.set(key, stringCalc.Minus(src1,src2));
+    if (cache.getItem(key) == null) {
+       cache.setItem(key, stringCalc.Minus(src1,src2));
     }
-    document.getElementById("out7").innerText = cache.get(key);
+    document.getElementById("out7").innerText = cache.getItem(key);
 }
 
 cachingCalcPlus = function() {
     let src1 = document.getElementById("in7.1").value;
     let src2 = document.getElementById("in7.2").value;
     let key = src1 + " " + src2 + "+";
-    if (!cache.has(key)) {
-       cache.set(key, stringCalc.Plus(src1,src2));
+    if (cache.getItem(key) == null) {
+       cache.setItem(key, stringCalc.Plus(src1,src2));
     }
-    document.getElementById("out7").innerText = cache.get(key);
+    document.getElementById("out7").innerText = cache.getItem(key);
 }
 
 cachingCalcMul = function() {
     let src1 = document.getElementById("in7.1").value;
     let src2 = document.getElementById("in7.2").value;
     let key = src1 + " " + src2 + "*";
-    if (!cache.has(key)) {
-       cache.set(key, stringCalc.Mul(src1,src2));
+    if (cache.getItem(key) == null) {
+       cache.setItem(key, stringCalc.Mul(src1,src2));
     }
-    document.getElementById("out7").innerText = cache.get(key);
+    document.getElementById("out7").innerText = cache.getItem(key);
 }
 
 cachingCalcDiv = function() {
     let src1 = document.getElementById("in7.1").value;
     let src2 = document.getElementById("in7.2").value;
     let key = src1 + " " + src2 + "/";
-    if (!cache.has(key)) {
-       cache.set(key, stringCalc.Div(src1,src2));
+    if (cache.getItem(key) == null) {
+       cache.setItem(key, stringCalc.Div(src1,src2));
     }
-    document.getElementById("out7").innerText = cache.get(key);
+    document.getElementById("out7").innerText = cache.getItem(key);
 }

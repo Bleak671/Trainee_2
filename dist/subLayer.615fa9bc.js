@@ -118,7 +118,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"js/arrayProcessor.js":[function(require,module,exports) {
-var arrayProcessor = {
+var arrayProcessor = Object.seal({
   GetMaxSubSum: function GetMaxSubSum(srcArray) {
     var sum = 0;
 
@@ -157,29 +157,30 @@ var arrayProcessor = {
 
     return resArray;
   }
-};
+});
 module.exports = {
   arrayProcessor: arrayProcessor
 };
 },{}],"js/dateProcessor.js":[function(require,module,exports) {
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var dateProcessor = _defineProperty({
-  DateParser: function DateParser(inString) {
-    var date = new Date(inString);
+var dateProcessor = Object.seal(_defineProperty({
+  DateParser: function DateParser(inString, inPattern, toPattern, options) {
+    var date;
+
+    if (options == 1 || options == 3) {
+      date = new Date(self.GetParsedString(inString, inPattern));
+    } else {
+      date = new Date(inString);
+    }
+
+    if (options == 2) {
+      return self.PasteDate(date, inPattern);
+    } else {
+      if (options == 3) return self.PasteDate(date, toPattern);
+    }
+
     return date.toString();
-  },
-  DateParserWithPattern: function DateParserWithPattern(inString, inPattern) {
-    var date = new Date(self.GetParsedString(inString, inPattern));
-    return date.toString();
-  },
-  DateParserToPattern: function DateParserToPattern(inString, toPattern) {
-    var date = new Date(inString);
-    return self.PasteDate(date, toPattern);
-  },
-  DateParserWithPatternToPattern: function DateParserWithPatternToPattern(inString, inPattern, toPattern) {
-    var date = new Date(self.GetParsedString(inString, inPattern));
-    return self.PasteDate(date, toPattern);
   },
   self: GetParsedString = function GetParsedString(inString, inPattern) {
     var innerDate = "";
@@ -232,39 +233,31 @@ var dateProcessor = _defineProperty({
   }
 
   return result;
-});
-
+}));
 module.exports = {
   dateProcessor: dateProcessor
 };
 },{}],"js/textFormatter.js":[function(require,module,exports) {
-var textFormatter = {
-  Format: function Format(inText, option) {
-    return self.Parse(inText, option);
-  },
-  FormatLen: function FormatLen(inText, maxLen, option) {
+var textFormatter = Object.seal({
+  Format: function Format(inText, maxLen, maxCount, option, adds) {
     var res = self.Parse(inText, option);
 
-    for (var i = 0; i < res.length; i++) {
-      if (res[i].length > maxLen) res[i] = res[i].substring(0, maxLen);
+    if (adds == 2) {
+      if (res.length > maxLen) {
+        res = res.slice(0, maxLen);
+      }
     }
 
-    return res;
-  },
-  FormatCount: function FormatCount(inText, maxCount, option) {
-    var res = self.Parse(inText, option);
-    if (res.length > maxCount) res = res.slice(0, maxCount);
-    return res;
-  },
-  FormatLenCount: function FormatLenCount(inText, maxLen, maxCount, option) {
-    var res = self.Parse(inText, option);
-
-    if (res.length > maxCount) {
-      res = res.slice(0, maxCount);
+    if (adds == 3) {
+      if (res.length > maxCount) {
+        res = res.slice(0, maxCount);
+      }
     }
 
-    for (var i = 0; i < res.length; i++) {
-      if (res[i].length > maxLen) res[i] = res[i].substring(0, maxLen);
+    if (adds == 1 || adds == 3) {
+      for (var i = 0; i < res.length; i++) {
+        if (res[i].length > maxLen) res[i] = res[i].substring(0, maxLen);
+      }
     }
 
     return res;
@@ -291,12 +284,12 @@ var textFormatter = {
 
     return res;
   }
-};
+});
 module.exports = {
   textFormatter: textFormatter
 };
 },{}],"js/stringCalc.js":[function(require,module,exports) {
-var stringCalc = {
+var stringCalc = Object.seal({
   Minus: function Minus(src1, src2) {
     return Number(src1) - Number(src2);
   },
@@ -309,12 +302,12 @@ var stringCalc = {
   Div: function Div(src1, src2) {
     return Number(src1) / Number(src2);
   }
-};
+});
 module.exports = {
   stringCalc: stringCalc
 };
 },{}],"js/arraySorter.js":[function(require,module,exports) {
-var arraySorter = {
+var arraySorter = Object.seal({
   SortBubble: function SortBubble(srcArray) {
     for (var i = 0; i < srcArray.length - 1; i++) {
       for (var j = 0; j < srcArray.length - 1; j++) {
@@ -389,12 +382,12 @@ var arraySorter = {
 
     return srcArray;
   }
-};
+});
 module.exports = {
   arraySorter: arraySorter
 };
 },{}],"js/binaryConverter.js":[function(require,module,exports) {
-var binaryConverter = {
+var binaryConverter = Object.seal({
   BinToDec: function BinToDec(inArray) {
     var res = 0;
 
@@ -432,7 +425,7 @@ var binaryConverter = {
 
     return res;
   }
-};
+});
 module.exports = {
   binaryConverter: binaryConverter
 };
@@ -483,43 +476,26 @@ Clear = function Clear() {
 };
 
 dateProcParse = function dateProcParse() {
-  var src = document.getElementById("in2").value;
-  document.getElementById("out2").innerText = dateProcessor.DateParser(src);
-};
-
-dateProcParseWithPattern = function dateProcParseWithPattern() {
   var src = document.getElementById("in2").value.split(",");
-  document.getElementById("out2").innerText = dateProcessor.DateParserWithPattern(src[0], src[1]);
-};
 
-dateProcParseToPattern = function dateProcParseToPattern() {
-  var src = document.getElementById("in2").value.split(",");
-  document.getElementById("out2").innerText = dateProcessor.DateParserToPattern(src[0], src[1]);
-};
+  for (var i = 0; i < src.length; i++) {
+    src[i] = src[i].trim();
+  }
 
-dateProcParseWithPatternToPattern = function dateProcParseWithPatternToPattern() {
-  var src = document.getElementById("in2").value.split(",");
-  document.getElementById("out2").innerText = dateProcessor.DateParserWithPatternToPattern(src[0], src[1], src[2]);
+  var patterns = document.getElementById("in2adds").value;
+  document.getElementById("out2").innerText = dateProcessor.DateParser(src[0], src[1], src[2], patterns);
 };
 
 textFormOption = function textFormOption() {
   var src = document.getElementById("in3").value.split(",");
-  document.getElementById("out3").innerText = textFormatter.Format(src[0], src[1]);
-};
 
-textFormLenOption = function textFormLenOption() {
-  var src = document.getElementById("in3").value.split(",");
-  document.getElementById("out3").innerText = textFormatter.FormatLen(src[0], src[1], src[2]);
-};
+  for (var i = 0; i < src.length; i++) {
+    src[i] = src[i].trim();
+  }
 
-textFormCountOption = function textFormCountOption() {
-  var src = document.getElementById("in3").value.split(",");
-  document.getElementById("out3").innerText = textFormatter.FormatCount(src[0], src[1], src[2]);
-};
-
-textFormLenCountOption = function textFormLenCountOption() {
-  var src = document.getElementById("in3").value.split(",");
-  document.getElementById("out3").innerText = textFormatter.FormatLenCount(src[0], src[1], src[2], src[3]);
+  var form = document.getElementById("in3list").value;
+  var adds = document.getElementById("in3adds").value;
+  document.getElementById("out3").innerText = textFormatter.Format(src[0], src[1], src[2], form, adds);
 };
 
 strCalcMinus = function strCalcMinus() {
@@ -573,21 +549,21 @@ binConvToDec = function binConvToDec() {
 
 binConvToBin = function binConvToBin() {
   var src = document.getElementById("in6").value.split(",").map(Number);
-  document.getElementById("out6").innerText = "Dec: " + binaryConverter.DecToBin(src);
+  document.getElementById("out6").innerText = "Bin: " + binaryConverter.DecToBin(src);
 };
 
-var cache = new Map();
+var cache = window.localStorage;
 
 cachingCalcMinus = function cachingCalcMinus() {
   var src1 = document.getElementById("in7.1").value;
   var src2 = document.getElementById("in7.2").value;
   var key = src1 + " " + src2 + "-";
 
-  if (!cache.has(key)) {
-    cache.set(key, stringCalc.Minus(src1, src2));
+  if (cache.getItem(key) == null) {
+    cache.setItem(key, stringCalc.Minus(src1, src2));
   }
 
-  document.getElementById("out7").innerText = cache.get(key);
+  document.getElementById("out7").innerText = cache.getItem(key);
 };
 
 cachingCalcPlus = function cachingCalcPlus() {
@@ -595,11 +571,11 @@ cachingCalcPlus = function cachingCalcPlus() {
   var src2 = document.getElementById("in7.2").value;
   var key = src1 + " " + src2 + "+";
 
-  if (!cache.has(key)) {
-    cache.set(key, stringCalc.Plus(src1, src2));
+  if (cache.getItem(key) == null) {
+    cache.setItem(key, stringCalc.Plus(src1, src2));
   }
 
-  document.getElementById("out7").innerText = cache.get(key);
+  document.getElementById("out7").innerText = cache.getItem(key);
 };
 
 cachingCalcMul = function cachingCalcMul() {
@@ -607,11 +583,11 @@ cachingCalcMul = function cachingCalcMul() {
   var src2 = document.getElementById("in7.2").value;
   var key = src1 + " " + src2 + "*";
 
-  if (!cache.has(key)) {
-    cache.set(key, stringCalc.Mul(src1, src2));
+  if (cache.getItem(key) == null) {
+    cache.setItem(key, stringCalc.Mul(src1, src2));
   }
 
-  document.getElementById("out7").innerText = cache.get(key);
+  document.getElementById("out7").innerText = cache.getItem(key);
 };
 
 cachingCalcDiv = function cachingCalcDiv() {
@@ -619,11 +595,11 @@ cachingCalcDiv = function cachingCalcDiv() {
   var src2 = document.getElementById("in7.2").value;
   var key = src1 + " " + src2 + "/";
 
-  if (!cache.has(key)) {
-    cache.set(key, stringCalc.Div(src1, src2));
+  if (cache.getItem(key) == null) {
+    cache.setItem(key, stringCalc.Div(src1, src2));
   }
 
-  document.getElementById("out7").innerText = cache.get(key);
+  document.getElementById("out7").innerText = cache.getItem(key);
 };
 },{"./arrayProcessor.js":"js/arrayProcessor.js","./dateProcessor.js":"js/dateProcessor.js","./textFormatter.js":"js/textFormatter.js","./stringCalc.js":"js/stringCalc.js","./arraySorter.js":"js/arraySorter.js","./binaryConverter.js":"js/binaryConverter.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -653,7 +629,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51778" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56622" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

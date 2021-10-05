@@ -1,22 +1,21 @@
-var dateProcessor = {
-  DateParser: function(inString) {
-    let date = new Date(inString);
+let dateProcessor = Object.seal({
+  DateParser: function(inString, inPattern, toPattern, options) {
+    let date;
+    if (options == 1 || options == 3) {
+      date = new Date(self.GetParsedString(inString, inPattern));
+    }
+    else {
+      date = new Date(inString);
+    }
+
+    if (options == 2) {
+      return self.PasteDate(date, inPattern);
+    }
+    else {
+      if (options == 3)
+        return self.PasteDate(date, toPattern);
+    }
     return date.toString();
-  },
-
-  DateParserWithPattern: function(inString, inPattern) {
-    let date = new Date(self.GetParsedString(inString, inPattern));
-    return date.toString();
-  },
-
-  DateParserToPattern: function(inString, toPattern) {
-    let date = new Date(inString);
-    return self.PasteDate(date, toPattern);
-  },
-
-  DateParserWithPatternToPattern: function(inString, inPattern, toPattern) {
-    let date = new Date(self.GetParsedString(inString, inPattern));
-    return self.PasteDate(date, toPattern);
   },
 
   self:GetParsedString = function(inString, inPattern) {
@@ -63,6 +62,6 @@ var dateProcessor = {
     }
     return result;
   }
-}
+});
 
 module.exports = { dateProcessor };  

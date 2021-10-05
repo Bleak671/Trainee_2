@@ -1,4 +1,4 @@
-var binaryConverter = {
+let binaryConverter = Object.seal({
     BinToDec: function(inArray) {
         let res = 0;
         for (let i = inArray.length - 1; i >= 0; i--) {
@@ -32,6 +32,6 @@ var binaryConverter = {
         }
         return res;
     }
-}
+});
 
 module.exports = {binaryConverter};

@@ -1,4 +1,4 @@
-var stringCalc = {
+let stringCalc = Object.seal({
     Minus: function(src1,src2) {
         return Number(src1) - Number(src2);
     },
@@ -14,6 +14,6 @@ var stringCalc = {
     Div: function(src1,src2) {
         return Number(src1) / Number(src2);
     }
-}
+});
 
 module.exports = { stringCalc };

@@ -17,19 +17,30 @@
     <hr>
     <h1>DATE CONVERTER</h1>
     <input id="in2" placeholder="any date...">
-    <button id="btn2.1" onclick="dateProcParse()">Parse all (date)</button>
-    <button id="btn2.2" onclick="dateProcParseWithPattern()">Parse with pattern (date,DDMMYYYY)</button>
-    <button id="btn2.3" onclick="dateProcParseToPattern()">Convert to pattern (date,MMDDYYYY)</button>
-    <button id="btn2.4" onclick="dateProcParseWithPatternToPattern()">Convert with pattern to pattern (date,DDMMYYYY, MMDDYYYY)</button>
+    <select id="in2adds">
+        <option value=0>нет опций</option>
+        <option value=1>входной паттерн(date,DDMMYYYY)</option>
+        <option value=2>выходной паттерн(date,MMDDYYYY)</option>
+        <option value=3>входной, выходной паттерн(date,DDMMYYYY,MMDDYYYY)</option>
+    </select>
+    <button id="btn2.1" onclick="dateProcParse()">Parse all</button>
     <p id="out2"></p>
 
     <hr>
     <h1>TEXT FORMATER</h1>
     <input id="in3" placeholder="text...">
-    <button id="btn3.1" onclick="textFormOption()">text,format</button>
-    <button id="btn3.2" onclick="textFormLenOption()">text,maxLen,format</button>
-    <button id="btn3.3" onclick="textFormCountOption()">text,maxCount,format</button>
-    <button id="btn3.4" onclick="textFormLenCountOption()">text,maxLen,maxCount,format</button>
+    <select id="in3list">
+        <option value="перенос по слову">перенос по слову</option>
+        <option value="перенос по символу">перенос по символу</option>
+        <option value="перенос по предложению">перенос по предложению</option>
+    </select>
+    <select id="in3adds">
+        <option value=0>нет опций</option>
+        <option value=1>длина строки(text,len)</option>
+        <option value=2>количество строк(text,count)</option>
+        <option value=3>длина строки, количество строк(text,len,count)</option>
+    </select>
+    <button id="btn3.1" onclick="textFormOption()">Go!</button>
     <p id="out3"></p>
 
     <hr>

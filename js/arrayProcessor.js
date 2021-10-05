@@ -1,4 +1,4 @@
-var arrayProcessor = {
+let arrayProcessor = Object.seal({
     GetMaxSubSum: function(srcArray) {
         let sum = 0;
         for (let i = 0; i < srcArray.length; i++) {
@@ -35,6 +35,6 @@ var arrayProcessor = {
         }
         return resArray;
     }
-}
+});
 
 module.exports = {arrayProcessor};
