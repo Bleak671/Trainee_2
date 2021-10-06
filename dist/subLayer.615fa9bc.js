@@ -558,48 +558,49 @@ cachingCalcMinus = function cachingCalcMinus() {
   var src1 = document.getElementById("in7.1").value;
   var src2 = document.getElementById("in7.2").value;
   var key = src1 + " " + src2 + "-";
-
-  if (cache.getItem(key) == null) {
-    cache.setItem(key, stringCalc.Minus(src1, src2));
-  }
-
-  document.getElementById("out7").innerText = cache.getItem(key);
+  document.getElementById("out7").innerText = callClass.Store(key, function () {
+    return stringCalc.Minus(src1, src2);
+  });
 };
 
 cachingCalcPlus = function cachingCalcPlus() {
   var src1 = document.getElementById("in7.1").value;
   var src2 = document.getElementById("in7.2").value;
   var key = src1 + " " + src2 + "+";
-
-  if (cache.getItem(key) == null) {
-    cache.setItem(key, stringCalc.Plus(src1, src2));
-  }
-
-  document.getElementById("out7").innerText = cache.getItem(key);
+  document.getElementById("out7").innerText = callClass.Store(key, function () {
+    return stringCalc.Plus(src1, src2);
+  });
 };
 
 cachingCalcMul = function cachingCalcMul() {
   var src1 = document.getElementById("in7.1").value;
   var src2 = document.getElementById("in7.2").value;
   var key = src1 + " " + src2 + "*";
-
-  if (cache.getItem(key) == null) {
-    cache.setItem(key, stringCalc.Mul(src1, src2));
-  }
-
-  document.getElementById("out7").innerText = cache.getItem(key);
+  document.getElementById("out7").innerText = callClass.Store(key, function () {
+    return stringCalc.Mul(src1, src2);
+  });
 };
 
 cachingCalcDiv = function cachingCalcDiv() {
   var src1 = document.getElementById("in7.1").value;
   var src2 = document.getElementById("in7.2").value;
   var key = src1 + " " + src2 + "/";
+  document.getElementById("out7").innerText = callClass.Store(key, function () {
+    return stringCalc.Div(src1, src2);
+  });
+};
 
-  if (cache.getItem(key) == null) {
-    cache.setItem(key, stringCalc.Div(src1, src2));
+var callClass = {
+  Store: function Store(key, func) {
+    var res = cache.getItem(key);
+
+    if (res == null) {
+      res = func();
+      cache.setItem(key, res);
+    }
+
+    return res;
   }
-
-  document.getElementById("out7").innerText = cache.getItem(key);
 };
 },{"./arrayProcessor.js":"js/arrayProcessor.js","./dateProcessor.js":"js/dateProcessor.js","./textFormatter.js":"js/textFormatter.js","./stringCalc.js":"js/stringCalc.js","./arraySorter.js":"js/arraySorter.js","./binaryConverter.js":"js/binaryConverter.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -629,7 +630,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56622" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49267" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -123,38 +123,45 @@ cachingCalcMinus = function() {
     let src1 = document.getElementById("in7.1").value;
     let src2 = document.getElementById("in7.2").value;
     let key = src1 + " " + src2 + "-";
-    if (cache.getItem(key) == null) {
-       cache.setItem(key, stringCalc.Minus(src1,src2));
-    }
-    document.getElementById("out7").innerText = cache.getItem(key);
+    document.getElementById("out7").innerText = callClass.Store(key, function() {
+        return stringCalc.Minus(src1,src2)
+    });
 }
 
 cachingCalcPlus = function() {
     let src1 = document.getElementById("in7.1").value;
     let src2 = document.getElementById("in7.2").value;
     let key = src1 + " " + src2 + "+";
-    if (cache.getItem(key) == null) {
-       cache.setItem(key, stringCalc.Plus(src1,src2));
-    }
-    document.getElementById("out7").innerText = cache.getItem(key);
+    document.getElementById("out7").innerText = callClass.Store(key, function() {
+        return stringCalc.Plus(src1,src2)
+    });
 }
 
 cachingCalcMul = function() {
     let src1 = document.getElementById("in7.1").value;
     let src2 = document.getElementById("in7.2").value;
     let key = src1 + " " + src2 + "*";
-    if (cache.getItem(key) == null) {
-       cache.setItem(key, stringCalc.Mul(src1,src2));
-    }
-    document.getElementById("out7").innerText = cache.getItem(key);
+    document.getElementById("out7").innerText = callClass.Store(key, function() {
+        return stringCalc.Mul(src1,src2)
+    });
 }
 
 cachingCalcDiv = function() {
     let src1 = document.getElementById("in7.1").value;
     let src2 = document.getElementById("in7.2").value;
     let key = src1 + " " + src2 + "/";
-    if (cache.getItem(key) == null) {
-       cache.setItem(key, stringCalc.Div(src1,src2));
+    document.getElementById("out7").innerText = callClass.Store(key, function() {
+        return stringCalc.Div(src1,src2)
+    });
+}
+
+let callClass = {
+    Store: function(key, func) {
+        let res = cache.getItem(key);
+        if (res == null) {
+            res = func();
+            cache.setItem(key, res);
+        }
+        return res;
     }
-    document.getElementById("out7").innerText = cache.getItem(key);
 }
