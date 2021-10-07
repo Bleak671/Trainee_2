@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+    <h1>ARRAY PROCESSOR</h1>
+    <input id="in1" placeholder="1,2,3,4...">
+    <button id="btn1.1" onclick="arrProcSubSum()">SubSum</button>
+    <button id="btn1.2" onclick="arrProcMinMaxMedian()">Min Max Median</button>
+    <button id="btn1.3" onclick="arrProcSortSeq()">Max Sorted</button>
+    <p id="out1.1"></p>
+    <p id="out1.2"></p>
+    <p id="out1.3"></p>
+
+    <hr>
+    <h1>DATE CONVERTER</h1>
+    <input id="in2" placeholder="any date...">
+    <select id="in2adds">
+        <option value="0">нет опций</option>
+        <option value="1">входной паттерн(date,DDMMYYYY)</option>
+        <option value="2">выходной паттерн(date,MMDDYYYY)</option>
+        <option value="3">входной, выходной паттерн(date,DDMMYYYY,MMDDYYYY)</option>
+    </select>
+    <button id="btn2.1" onclick="dateProcParse()">Parse all</button>
+    <p id="out2"></p>
+
+    <hr>
+    <h1>TEXT FORMATER</h1>
+    <input id="in3" placeholder="text...">
+    <select id="in3list">
+        <option value="перенос по слову">перенос по слову</option>
+        <option value="перенос по символу">перенос по символу</option>
+        <option value="перенос по предложению">перенос по предложению</option>
+    </select>
+    <select id="in3adds">
+        <option value="0">нет опций</option>
+        <option value="1">длина строки(text,len)</option>
+        <option value="2">количество строк(text,count)</option>
+        <option value="3">длина строки, количество строк(text,len,count)</option>
+    </select>
+    <button id="btn3.1" onclick="textFormOption()">Go!</button>
+    <p id="out3"></p>
+
+    <hr>
+    <h1>STRING CALC</h1>
+    <input id="in4.1" placeholder="num1...">
+    <input id="in4.2" placeholder="num2...">
+    <button id="btn4.1" onclick="strCalcMinus()">-</button>
+    <button id="btn4.2" onclick="strCalcPlus()">+</button>
+    <button id="btn4.3" onclick="strCalcMul()">*</button>
+    <button id="btn4.4" onclick="strCalcDiv()">/</button>
+    <p id="out4"></p>
+
+    <hr>
+    <h1>ARRAY SORTER</h1>
+    <input id="in5" placeholder="1,2,3,4...">
+    <button id="btn5.1" onclick="arrSortBubble()">bubble sort</button>
+    <button id="btn5.2" onclick="arrSortBubbleWF()">bubble sort with flag</button>
+    <button id="btn5.3" onclick="arrSortShaker()">shaker sort</button>
+    <button id="btn5.4" onclick="arrSortInsert()">insert sort</button>
+    <p id="out5"></p>
+
+    <hr>
+    <h1>BINARY FORMATTER</h1>
+    <input id="in6" placeholder="1,2,3,4...">
+    <button id="btn6.1" onclick="binConvToDec()">bin to dec</button>
+    <button id="btn6.2" onclick="binConvToBin()">dec to bin</button>
+    <p id="out6"></p>
+
+    <hr>
+    <h1>CACHE CALC</h1>
+    <input id="in7.1" placeholder="num1...">
+    <input id="in7.2" placeholder="num2...">
+    <button id="btn7.1" onclick="cachingCalcMinus()">-</button>
+    <button id="btn7.2" onclick="cachingCalcPlus()">+</button>
+    <button id="btn7.3" onclick="cachingCalcMul()">*</button>
+    <button id="btn7.4" onclick="cachingCalcDiv()">/</button>
+    <p id="out7"></p>
+    <script src="/subLayer.615fa9bc.js"></script>
+</body>
+
+</html>
