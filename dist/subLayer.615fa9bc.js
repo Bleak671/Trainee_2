@@ -185,13 +185,13 @@ var dateProcessor = Object.seal(_defineProperty({
   self: GetParsedString = function GetParsedString(inString, inPattern) {
     var innerDate = "";
 
-    for (var i = inPattern.indexOf('D'); inPattern[i] == 'D'; i++) {
+    for (var i = inPattern.indexOf('M'); inPattern[i] == 'M'; i++) {
       innerDate += inString[i];
     }
 
     innerDate += '.';
 
-    for (var _i = inPattern.indexOf('M'); inPattern[_i] == 'M'; _i++) {
+    for (var _i = inPattern.indexOf('D'); inPattern[_i] == 'D'; _i++) {
       innerDate += inString[_i];
     }
 
@@ -552,8 +552,6 @@ binConvToBin = function binConvToBin() {
   document.getElementById("out6").innerText = "Bin: " + binaryConverter.DecToBin(src);
 };
 
-var cache = window.localStorage;
-
 cachingCalcMinus = function cachingCalcMinus() {
   var src1 = document.getElementById("in7.1").value;
   var src2 = document.getElementById("in7.2").value;
@@ -592,6 +590,7 @@ cachingCalcDiv = function cachingCalcDiv() {
 
 var callClass = {
   Store: function Store(key, func) {
+    var cache = window.localStorage;
     var res = cache.getItem(key);
 
     if (res == null) {
@@ -630,7 +629,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49267" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63246" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

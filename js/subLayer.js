@@ -117,8 +117,6 @@ binConvToBin = function() {
 
 
 
-const cache = window.localStorage;
-
 cachingCalcMinus = function() {
     let src1 = document.getElementById("in7.1").value;
     let src2 = document.getElementById("in7.2").value;
@@ -157,6 +155,7 @@ cachingCalcDiv = function() {
 
 let callClass = {
     Store: function(key, func) {
+        const cache = window.localStorage;
         let res = cache.getItem(key);
         if (res == null) {
             res = func();

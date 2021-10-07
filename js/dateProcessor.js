@@ -20,12 +20,13 @@ let dateProcessor = Object.seal({
 
   self:GetParsedString = function(inString, inPattern) {
     let innerDate = "";
-    for (let i = inPattern.indexOf('D'); inPattern[i] == 'D'; i++) {
+  
+    for (let i = inPattern.indexOf('M'); inPattern[i] == 'M'; i++) {
       innerDate += inString[i];
     }
     innerDate += '.';
 
-    for (let i = inPattern.indexOf('M'); inPattern[i] == 'M'; i++) {
+    for (let i = inPattern.indexOf('D'); inPattern[i] == 'D'; i++) {
       innerDate += inString[i];
     }
     innerDate += '.';
